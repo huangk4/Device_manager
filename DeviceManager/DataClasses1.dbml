@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DeviceManager" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=140.143.230.185;Initial Catalog=DeviceManager;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DeviceManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Admin" Member="Admin">
+    <Type Name="Admin">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="用户名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="密码" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="所属部门" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="姓名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="联系方式" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="职位" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Admin_User2Role" Member="User2Role" ThisKey="ID" OtherKey="userid" Type="User2Role" />
+      <Association Name="Department_Admin" Member="Department" ThisKey="所属部门" OtherKey="部门名称" Type="Department" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Warehouse" Member="Warehouse">
+    <Type Name="Warehouse">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="仓库所属" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="仓库名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Warehouse_Device" Member="Device" ThisKey="仓库名" OtherKey="所属仓库" Type="Device" />
+      <Association Name="Department_Warehouse" Member="Department" ThisKey="仓库所属" OtherKey="部门名称" Type="Department" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Authority" Member="Authority">
+    <Type Name="Authority">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="权限" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Authority_Role2Auth" Member="Role2Auth" ThisKey="ID" OtherKey="authid" Type="Role2Auth" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Department" Member="Department">
+    <Type Name="Department">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="部门名称" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="部门库" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Department_Admin" Member="Admin" ThisKey="部门名称" OtherKey="所属部门" Type="Admin" />
+      <Association Name="Department_Warehouse" Member="Warehouse" ThisKey="部门名称" OtherKey="仓库所属" Type="Warehouse" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Device" Member="Device">
+    <Type Name="Device">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="资产名称" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="简称" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="所属仓库" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="存量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="是否耗材" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="折旧状态" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="借出状态" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="借出信息" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Warehouse_Device" Member="Warehouse" ThisKey="所属仓库" OtherKey="仓库名" Type="Warehouse" IsForeignKey="true" DeleteRule="SET DEFAULT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GodownEntry" Member="GodownEntry">
+    <Type Name="GodownEntry">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="资产名称" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="入库库名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="入库时间" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="质检状态" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="入库数量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="是否耗材" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Requirement" Member="Requirement">
+    <Type Name="Requirement">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="需求内容" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="需求数量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="需求部门" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="是否耗材" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="订单生成" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Role">
+    <Type Name="Role">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="角色名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="角色描述" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Role_Role2Auth" Member="Role2Auth" ThisKey="ID" OtherKey="roleid" Type="Role2Auth" />
+      <Association Name="Role_User2Role" Member="User2Role" ThisKey="ID" OtherKey="roleid" Type="User2Role" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role2Auth" Member="Role2Auth">
+    <Type Name="Role2Auth">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="roleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="authid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Authority_Role2Auth" Member="Authority" ThisKey="authid" OtherKey="ID" Type="Authority" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Role_Role2Auth" Member="Role" ThisKey="roleid" OtherKey="ID" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Supplier" Member="Supplier">
+    <Type Name="Supplier">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="联系方式" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="地址" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="详细信息" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User2Role" Member="User2Role">
+    <Type Name="User2Role">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="roleid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Role_User2Role" Member="Role" ThisKey="roleid" OtherKey="ID" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Admin_User2Role" Member="Admin" ThisKey="userid" OtherKey="ID" Type="Admin" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contract" Member="Contract">
+    <Type Name="Contract">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="合同名" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="交易资产" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="详细信息" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="生效时间" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="终止时间" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="审核状态" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="是否耗材" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SetOrder" Member="SetOrder">
+    <Type Name="SetOrder">
+      <Column Name="需求资产" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="需求数量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Order">
+    <Type Name="Order">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="资产名称" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="需求数量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="提交时间" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderCount" Member="OrderCount">
+    <Type Name="OrderCount">
+      <Column Name="订购资产" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="供货商" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="总量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GodownEntryCount" Member="GodownEntryCount">
+    <Type Name="GodownEntryCount">
+      <Column Name="资产" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="库" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="总量" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bulletin" Member="Bulletin">
+    <Type Name="Bulletin">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="消息种类" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="详细信息" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="发生时间" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,113 @@
+﻿body {
+}
+
+
+.headtitle{
+    color:white;
+    background-color:cadetblue;
+    height:80px;
+    padding-top:10px;
+    padding-left:10px;
+}
+
+h1{
+    font-size:100%;
+    font-size:50px;
+    padding:0;
+    margin:0;
+    height: 50px;
+    width: 945px;
+}
+
+
+.tableStyle {
+    position:absolute;
+    left:249px;
+    top:156px;
+    right: 169px;
+    margin-right: 7px;
+    height: 294px;
+    z-index: 1;
+}
+
+
+/*导航栏样式*/
+.menuStyle {
+    height: 50px;
+    width: 116px;
+    background-color:white;
+    Font:"Adobe 仿宋 Std R" ;
+    Font-Size:30px;
+    color:#33CCFF;
+}
+
+/*自导航栏样式*/
+.menusonStyle {
+    height: 50px;
+    width: 116px;
+    background-color: white;
+    Font: "Adobe 仿宋 Std R";
+    Font-Size: 30px;
+    color: #33CCFF;
+}
+
+/*列表样式*/
+.mGrid {
+    width: 900px;
+    background-color: aquamarine;
+    margin: 5px 0 10px 0;
+    border: solid 1px #525252;
+    border-collapse: collapse;
+    z-index: 1;
+    left: 299px;
+    top: 261px;
+    position: absolute;
+    height: 72px;
+}
+
+/*行（内容）*/
+    .mGrid td {
+        padding: 2px;
+        border: solid 1px #c1c1c1;
+        color: #717171;
+    }
+
+/*列（字段)*/
+    .mGrid th {
+        padding: 4px 2px;
+        color: #fff;
+        background: cadetblue url(../App_Data/grd_head.png) repeat-x top;
+        border-left: solid 1px #525252;
+        font-size: 0.9em;
+    }
+
+    .mGrid .alt {
+        background: #fcfcfc url(../App_Data/grd_alt.png) repeat-x top;
+    }
+
+    .mGrid .pgr {
+        background: cadetblue url(../App_Data/grd_pgr.png) repeat-x top;
+    }
+
+        .mGrid .pgr table {
+            margin: 5px 0;
+        }
+
+        .mGrid .pgr td {
+            border-width: 0;
+            padding: 0 6px;
+            border-left: solid 1px #666;
+            font-weight: bold;
+            color: #fff;
+            line-height: 12px;
+        }
+
+        .mGrid .pgr a {
+            color: #666;
+            text-decoration: none;
+        }
+
+            .mGrid .pgr a:hover {
+                color: #000;
+                text-decoration: none;
+            }
